@@ -157,7 +157,7 @@ $(document).ready(function(){
     
     <input type ="date" class="date" >
     
-	<button class="btns">View Graphs</button>
+	<button class="btns" onclick="location.href='graphs.jsp'">View Graphs</button>
 	<button class="btns">View</button>
 	<button class="btns">Close</button>
 	<button class="btns">Home Page</button>
