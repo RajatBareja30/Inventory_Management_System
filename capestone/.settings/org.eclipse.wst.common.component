@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="capestone">
+    <wb-module deploy-name="Capstone_project">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="capestone"/>
-        <property name="java-output-path" value="/capestone/build/classes"/>
+        <dependent-module archiveName="mysql-connector-java-5.1.38.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/sorat/Downloads/jar_files/mysql-connector-java-5.1.38.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="mysql-socket-factory-1.0.15-jar-with-dependencies.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Capstone_project/WebContent/WEB-INF/lib/mysql-socket-factory-1.0.15-jar-with-dependencies.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="Capstone_project"/>
+        <property name="java-output-path" value="/Capstone_project/build/classes"/>
     </wb-module>
 </project-modules>
