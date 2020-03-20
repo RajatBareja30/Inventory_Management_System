@@ -46,9 +46,8 @@ body {
 	width: 50%;
 	position: fixed;
 	z-index: 1;
-	top: 0;
 	overflow-x: hidden;
-	padding-top: 60px;
+	
 }
 
 .left {

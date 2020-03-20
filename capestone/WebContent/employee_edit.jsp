@@ -13,7 +13,7 @@
 	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <meta charset="ISO-8859-1">
-<title>Registration page</title>
+<title>Edit Employee </title>
 <style>
 body {
 	background:
@@ -31,14 +31,6 @@ body {
 	bottom: 0;
 }
 
-.split {
-	height: 100%;
-	width: 50%;
-	position: fixed;
-	z-index: 1;
-	overflow-x: hidden;
-	
-}
 
 .left {
 	left: 0;
@@ -103,14 +95,25 @@ th, td {
 <div id="header"></div>
 <body>
 
-	<div class="vl"></div>
-
+	<%
+	Class.forName("com.mysql.jdbc.Driver").newInstance();
+	Connection connection = DriverManager.getConnection("jdbc:mysql://google/Inventory?cloudSqlInstance=nirav-2311:northamerica-northeast1:inventory"
+		   		+ "&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&user=Nirav_Sorathia&password=nirav#2311");
+    %>
 	<div class="split left" style="width: 100%;">
-		<form role="form" action="RegistrationServlet" method="post">
-
+		<form role="form" method="post" action="EmployeeEditServlet">
+		<%
+		String id=request.getParameter("id");
+		Statement stat = connection.createStatement();
+		PreparedStatement p1 = connection.prepareStatement("SELECT * FROM Employee_Registration WHERE Employee_ID = " + id);
+		ResultSet rs = p1.executeQuery();
+		while(rs.next()) {
+		%>
+		
+				<input type = "hidden" name= "id" value= <%=id%>>
 			<div>
 				<p>
-					<label for="firstName">First Name*</label> <input type="text"
+					<label for="firstName">First Name*</label> <input type="text" value="<%=rs.getString("First_Name")%>"
 						id="firstName" placeholder="First Name" name="firstname"
 						title="only alphabets" pattern="[a-zA-Z]+" autofocus required>
 				</p>
@@ -118,7 +121,7 @@ th, td {
 
 			<div>
 				<p>
-					<label for="lastName">Last Name*</label> <input type="text"
+					<label for="lastName">Last Name*</label> <input type="text" value="<%=rs.getString("Last_Name")%>"
 						id="lastName" placeholder="Last Name" name="lastname"
 						title="only alphabets" pattern="[a-zA-Z]+" autofocus required>
 				</p>
@@ -126,7 +129,7 @@ th, td {
 
 			<div>
 				<p>
-					<label for="email">Email* </label> <input type="email" id="email"
+					<label for="email">Email* </label> <input type="email" id="email" value="<%=rs.getString("Email")%>"
 						placeholder="Email" name="email"
 						pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
 						title="abc@email.com" required>
@@ -135,7 +138,7 @@ th, td {
 
 			<div>
 				<p>
-					<label for="password">Password*</label> <input type="password"
+					<label for="password">Password*</label> <input type="password" value="<%=rs.getString("Password")%>"
 						id="password" placeholder="Password" name="password"
 						title="6-12 characters, at least one uppercase letter, one lowercase letter and one number "
 						required>
@@ -145,7 +148,7 @@ th, td {
 			<div>
 				<p>
 					<label for="password">Confirm Password*</label> <input
-						type="password" id="confirm_password" placeholder="Password"
+						type="password" id="confirm_password" placeholder="Password" value="<%=rs.getString("Password")%>"
 						name="passConfirm"
 						title="6-12 characters, at least one uppercase letter, one lowercase letter and one number "
 						required>
@@ -154,7 +157,7 @@ th, td {
 
 			<div>
 				<p>
-					<label for="phoneNumber">Phone number </label> <input type="text"
+					<label for="phoneNumber">Phone number </label> <input type="text" value="<%=rs.getString("Phone")%>"
 						id="phoneNumber" placeholder="Phone number" name="phone" required>
 				</p>
 			</div>
@@ -165,9 +168,9 @@ th, td {
 					<label>Gender</label>
 				<div>
 
-					<input type="radio" id="femaleRadio" value="Female" name="gender"
+					<input type="radio" id="femaleRadio" value="Female" name="gender" value="<%=rs.getString("Gender")%>"
 						style="width: 5%; margin-left: 20px;">Female <input
-						type="radio" id="maleRadio" value="Male" name="gender"
+						type="radio" id="maleRadio" value="Male" name="gender" value="<%=rs.getString("Gender")%>"
 						style="width: 5%; margin-left: 20px;">Male
 
 				</div>
@@ -176,63 +179,21 @@ th, td {
 			<br>
 
 			<div style="margin-left: 30px; display: inline-block;">
-				<button class="btns">Sign up</button>
-				<button class="btns" onclick="location.href='registration.jsp'">Save</button>
-				<button class="btns" onclick="location.href='dashboard.jsp'">Home</button>	 
+				 <button class="btns" >Save</button>
+						 
 			</div>
 
 		</form>
-				
-		
-	</div>
-
-	<div class="split right">
-		<h3 align="center">
-			<b> List of employees </b>
-		</h3>
-		<hr>
-		<%
-				try {
-					String search = request.getParameter("q");
-					Class.forName("com.mysql.jdbc.Driver");
-					//connection = DriverManager.getConnection(CREDENTIAL_STRING);
-					Connection connection = DriverManager.getConnection(
-							"jdbc:mysql://google/Inventory?cloudSqlInstance=nirav-2311:northamerica-northeast1:inventory"
-									+ "&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&user=Nirav_Sorathia&password=nirav#2311");
-					PreparedStatement p1 = connection
-							.prepareStatement("SELECT * FROM Employee_Registration");
-					ResultSet rs = p1.executeQuery();
-			%>
-	<div class="tablediv">
-		<table border="1">
-
-			<tr>
-				<th>FirstName</th>
-				<th>LastName</th>
-				<th>Edit</th>
-				<th>Delete</th>
-			</tr>
-			<%
-					while (rs.next()) {
-				%>
-				<tr>
-					<td><%=rs.getString("First_Name")%></td>
-					<td><%=rs.getString("Last_Name")%></td>
-					<td><a href = "employee_edit.jsp?id=<%=rs.getString("Employee_ID")%>"> <button class="btns btn-warning"> Edit </button></a></td>
-					<td><a href = "employee_delete.jsp?id=<%=rs.getString("Employee_ID")%>"> <button class="btns btn-danger" > Delete </button></a></td>
-				</tr>
-				<%
-					}
-				%>
-		</table>
-	</div>
-	<%
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		%>
-	</div>
+				<button class="btns" onclick="location.href='registration.jsp'">Home</button>
+		<% }%> 
+	</div>	
+	
+	
+	
 </body>
+
 <div id="footer"></div>
 
 </html>
+
+

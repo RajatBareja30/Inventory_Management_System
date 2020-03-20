@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class RegistrationServlet
  */
-@WebServlet("/RegistrationServlet")
-public class RegistrationServlet extends HttpServlet {
+@WebServlet("/EmployeeEditServlet")
+public class EmployeeEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String CREDENTIAL_STRING = "jdbc:mysql://google/Inventory?cloudSqlInstance=nirav-2311:northamerica-northeast1:inventory"
 			+ "&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&user=Nirav_Sorathia&password=nirav#2311";
@@ -27,7 +27,7 @@ public class RegistrationServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public RegistrationServlet() {
+	public EmployeeEditServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -49,31 +49,37 @@ public class RegistrationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		PrintWriter p = response.getWriter();
-
+		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection(CREDENTIAL_STRING);
 
-			String jspFirstname = request.getParameter("firstname");
-			String jspLastname = request.getParameter("lastname");
-			String jspEmail = request.getParameter("email");
-			String jspPassword = request.getParameter("password");
-//			String jspConfirmPassword = request.getParameter("passConfirm");
-			String jspPhone = request.getParameter("phone");
-			String jspgender = request.getParameter("gender");
+			    String jspId = request.getParameter("id");
+				String jspFirstname = request.getParameter("firstname");
+				String jspLastname = request.getParameter("lastname");
+				String jspEmail = request.getParameter("email");
+				String jspPassword = request.getParameter("password");
+				//String jspConfirmPassword = request.getParameter("passConfirm");
+				String jspPhone = request.getParameter("phone");
+				String jspgender = request.getParameter("gender");
 
-			PreparedStatement p1 = connection.prepareStatement(
-					"insert into Employee_Registration (First_Name,Last_Name,Password,Phone,Email,Gender) values\r\n"
-							+ "('" + jspFirstname + "','" + jspLastname + "','" + jspPassword + "','" + jspPhone + "','"
-							+ jspEmail + "','" + jspgender + "');");
-
-		 p1.executeUpdate();
-
-			request.getRequestDispatcher("registration.jsp").include(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+				String query = "update Employee_Registration set First_Name =?,Last_Name =?,Password =?,Phone =?,Email =?,Gender =?  WHERE Employee_ID = '"+jspId+"' ";
+				PreparedStatement p2 = connection.prepareStatement(query);
+							
+				p2.setString(1, jspFirstname);
+				p2.setString(2, jspLastname);
+				p2.setString(3, jspPassword);
+				p2.setString(4, jspPhone);
+				p2.setString(5, jspEmail);
+				p2.setString(6, jspgender);
+				
+				p2.executeUpdate();
+				response.sendRedirect("registration.jsp");
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
 
 //		doGet(request, response);
 	}

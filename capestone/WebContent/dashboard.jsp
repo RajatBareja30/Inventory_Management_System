@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,9 +48,7 @@ body {
 	width: 50%;
 	position: fixed;
 	z-index: 1;
-	top: 0;
 	overflow-x: hidden;
-	padding-top: 60px;
 }
 
 .left {
@@ -90,22 +91,24 @@ hr {
 	<div class="vl"></div>
 
 	<div id="header"></div>
+	
+	
 
 	<div class="split left" style="width: 100%;">
-		<button class="btns">Create employee account</button>
-		<button class="btns">Check inventory</button>
+		<button class="btns" onclick="location.href='registration.jsp'">Create employee account</button>
+		<button class="btns" onclick="location.href='Employee_item_check.jsp'">Check inventory</button>
 		<br>
-		<button class="btns">Add category</button>
-		<button class="btns">Add items</button>
+		<button class="btns" onclick="location.href='Add_Category.jsp'">Add category</button>
+		<button class="btns" onclick="location.href='add_item_manually.jsp'">Add items</button>
 		<br>
-		<button class="btns">Remove items</button>
-		<button class="btns">Order items</button>
+		<button class="btns" onclick="location.href='remove_items.jsp'">Remove items</button>
+		<button class="btns" onclick="location.href='order_item.jsp'">Order items</button>
 		<br>
-		<button class="btns">Damaged items</button>
-		<button class="btns">View reports</button>
+		<button class="btns" onclick="location.href='damaged_items.jsp'">Damaged items</button>
+		<button class="btns" onclick="location.href='reports.jsp'">View reports</button>
 		<br>
-		<button class="btns">POS order history</button>
-		<button class="btns">POS</button>
+		<button class="btns" onclick="location.href='Orderhistory.jsp'">POS order history</button>
+		<button class="btns" onclick="location.href='Pos.jsp'">POS</button>
 
 	</div>
 

@@ -94,8 +94,8 @@ label, select {
 		<br>
 		<div class="navbtn" align="center">
 			<button class="btns">Add item</button>
-			<button class="btns">Back to Add page</button>
-			<button class="btns">Home page</button>
+			<button class="btns" >Back to Add page</button>
+			<button class="btns" onclick="location.href='dashboard.jsp'">Home page</button>
 		</div>
 	</form>
 </body>

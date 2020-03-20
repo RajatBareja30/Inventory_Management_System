@@ -157,7 +157,7 @@ tr:nth-child(even) {
 				name="addcategory">
 			<button class="btns">Add</button>
 
-			<button class="btns">Home Page</button>
+			<button class="btns"onclick="location.href='dashboard.jsp'">Home Page</button>
 
 		</div>
 
